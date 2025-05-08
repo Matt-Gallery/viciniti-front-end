@@ -2,7 +2,7 @@
 
 ## Project Description
 
-### Our application is called Closet Cloud. It provides recommendations to users on what outfit to wear based on their saved wardrobe items and the weather forecast.
+### Our application is called Viciniti. It matches users who consume delivered services and products with corresponding providers in a way that facilitates piggybacking multiple deliveries 
 
 ## Application Description
 
