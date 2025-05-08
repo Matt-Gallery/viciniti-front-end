@@ -2,11 +2,11 @@
 
 ## Project Description
 
-### Our application is called Viciniti. It matches users who consume delivered services and products with corresponding providers in a way that facilitates piggybacking multiple deliveries 
+### Our application is called Viciniti. It matches users who consume delivered services and products with corresponding providers in a way that facilitates piggybacking multiple deliveries together in order to create efficiencies and cost savings for both parties and drive more sales for the providers.
 
 ## Application Description
 
-The purpose of the application is to make it easy for users to decide what to wear each day based on the weather forecast.  It will allow users to build a database of items they have in their wardrobe and some parameters for what weather they prefer to wear each item in and then based on the weather forecast it will propse outfit options for the day.
+The purpose of the application is to make the delivery of products and services to consumers more efficient by generating orders/reservations that are grouped closely toghther. We do this by pushing disount options to users based on their proximity to existing orders/reservations with a given service/product provider. This allows the providers to generate more business while reducing delivery costs and it allows users to get better pricing.
 
 ## User Stories
 
@@ -79,39 +79,6 @@ The purpose of the application is to make it easy for users to decide what to we
 
 
 ## Pseudocode
-```js
-/*-------------------------------- Import --------------------------------*/
-// express
-// react
-// react-router
-// mongoose
-// dotenv
-// method-override
-// morgan
-// express-session
-// bcrypt
-// CORS
-// db
-/*------------------------------- Pages -------------------------------*/
-// Landing/Login/Signup
-// Recommendations
-// Closet
-/*-------------------------------- Routes --------------------------------*/
-// POST Sign in
-// POST Sign up
-// GET account
-// PUT Edit Account
-// DELETE Account
-// GET weather
-// GET Recommended outfit
-// GET closet
-// GET saved outsfits
-// PUT edit saved outfits
-// POST Add new clothing item
-// PUT Edit clothing
-// DELETE clothing
-// GET Sign out
-```
 
 ## Timeline
 
