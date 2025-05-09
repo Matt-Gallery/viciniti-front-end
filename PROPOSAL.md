@@ -95,10 +95,12 @@ The purpose of the application is to make the delivery of products and services 
 | Thursday   |   | Final testing and styling          |          |                 |
 | Friday     |   | Present                            |          |                 |
 # viciniti-front-end
+  
+ 
 
 
 
-# Viciniti – Full API Routing Table (Finalized for MVP Logic)
+# Viciniti 
 
 ## Auth & Role Setup
 
@@ -107,49 +109,27 @@ The purpose of the application is to make the delivery of products and services 
 | `/api/signup` | POST | Create a new user and select role (customer or provider) | Public |
 | `/api/login` | POST | Authenticate user and return role info | Public |
 | `/api/logout` | POST | Log out user | Authenticated |
-| `/api/provider-info` | POST | Step 2: Provider enters business details | Public (after selecting provider role) |
+| `/api/user` | POST | Provider completes business profile after signup | Authenticated  |
 
 ---
 
-## Dashboard Logic (User)
+## Services
 
 | Route | Method | Description | Access |
 |-------|--------|-------------|--------|
-| `/api/dashboard` | GET | If Customer: return service categories. If Provider: return weekly appointment schedule | Authenticated |
-| `/api/sub-services/:id` | GET | Return sub-services for selected category (Customer) | Authenticated |
-| `/api/available-slots` | GET | Return available time slots for selected sub-service | Authenticated |
-| `/api/confirm-appointments` | POST | Confirm and save selected appointments (after selecting time slot) | Authenticated |
+| `/api/services` | GET | Customer: get all available services (e.g., Nails, Hair, Cleaning) | Authenticated |
+| `/api/services` | POST | Provider creates a new service | Authenticated (Provider) |
+| `/api/services/:id` | PUT | Provider edits their own service | Authenticated (Provider) |
+| `/api/services/:id` | DELETE | Provider deletes their own service | Authenticated (Provider) |
 
 ---
 
-## Appointments (User)
+## Appointments
 
 | Route | Method | Description | Access |
 |-------|--------|-------------|--------|
-| `/api/appointments` | GET | View customer’s booked appointments | Authenticated (Customer) |
-| `/api/appointments/:id` | PUT | Edit a customer’s own appointment | Authenticated (Customer) |
-| `/api/appointments/:id` | DELETE | Cancel a customer’s own appointment | Authenticated (Customer) |
-
----
-
-## Provider Sub-Services Management (Service Provider)
-
-| Route | Method | Description | Access |
-|-------|--------|-------------|--------|
-| `/api/my-services` | GET | Provider views all of *their* sub-services | Authenticated (Provider) |
-| `/api/my-services` | POST | Provider adds a new sub-service | Authenticated (Provider) |
-| `/api/my-services/:id` | PUT | Edit a sub-service | Authenticated (Provider) |
-| `/api/my-services/:id` | DELETE | Delete a sub-service | Authenticated (Provider) |
-| `/api/available-slots` | GET | Return available time slots for selected sub-service (Provider) | Authenticated |
-| `/api/available-slots/:id` | PUT | Edit a specific time slots for selected sub-service (Provider) | Authenticated |
-
----
-
-## Notifications
-
-| Route | Method | Description | Access |
-|-------|--------|-------------|--------|
-| `/api/notifications/subscribe` | POST | Subscribe to provider or service category | Authenticated |
-| `/api/notifications` | GET | View user’s notifications | Authenticated |
-
-Note: For customers, the entire booking flow (service → sub-service → schedule → confirm) happens on the same dashboard view using these routes.
+| `/api/appointments` | GET | Customer: view own appointments<br>Provider: view all appointments booked with them | Authenticated |
+| `/api/appointments` | POST | Customer books (confirms) a new appointment | Authenticated (Customer) |
+| `/api/appointments/:id` | PUT | Customer edits their own appointment | Authenticated (Customer) |
+| `/api/appointments/:id` | DELETE | Customer cancels their own appointment | Authenticated (Customer) |
+| `/api/appointments/available?service_id=123` | GET | Return available time slots for the selected service | Authenticated (Customer) |
