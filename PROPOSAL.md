@@ -109,7 +109,7 @@ The purpose of the application is to make the delivery of products and services 
 | `/api/signup` | POST | Create a new user and select role (customer or provider) | Public |
 | `/api/login` | POST | Authenticate user and return role info | Public |
 | `/api/logout` | POST | Log out user | Authenticated |
-| `/api/provider-info` | POST | Provider completes business profile after signup | Authenticated (Provider) |
+| `/api/user` | POST | Provider completes business profile after signup | Authenticated  |
 
 ---
 
