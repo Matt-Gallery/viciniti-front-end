@@ -88,12 +88,13 @@ The purpose of the application is to make the delivery of products and services 
     - As a user, I want to be able to save more information about myself to my profile so that I get better recommendations more quickly.
 
 ## Wire Frames
-### Application Web Pages
 
-![Wireframes](https://github.com/Matt-Gallery/weather-wardrobe/blob/main/Wireframes.png?raw=true)
+![Page2](./public/images/f1.png)
+![Page1](./public/images/f2.png)
+![Pricing](./public/images/pricematrix.png)
 
 ## Component Hierarchy Diagram
-![Component Hierarchy Diagram.png](https://github.com/Matt-Gallery/weather-wardrobe/blob/72f1af3455e0e9dcdc4ba4d14db63eabf8816323/Component%20Hierarchy%20Diagram.png)
+![Component Hierarchy Diagram](./public/images/component.png)
 
 ## Entity Relationship Diagram (ERD)
 
