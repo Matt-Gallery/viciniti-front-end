@@ -79,7 +79,7 @@ The purpose of the application is to make the delivery of products and services 
 
 ## Entity Relationship Diagram (ERD)
 
-![ERD](./public/images/erd.png)
+![ERD](./public/images/ERD.png)
 
 ## Timeline
 
