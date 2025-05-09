@@ -81,11 +81,6 @@ The purpose of the application is to make the delivery of products and services 
 
 ![ERD](./public/images/erd.png)
 
-
-## Routing Table
-
-![Routing Table](https://github.com/Matt-Gallery/weather-wardrobe/blob/main/Routing%20Table%202.png?raw=true)
-
 ## Timeline
 
 | Day        |   | Task                               | Blockers | Notes/ Thoughts |
@@ -116,18 +111,18 @@ The purpose of the application is to make the delivery of products and services 
 
 ---
 
-## Dashboard Logic (Role-Based)
+## Dashboard Logic (User)
 
 | Route | Method | Description | Access |
 |-------|--------|-------------|--------|
 | `/api/dashboard` | GET | If Customer: return service categories. If Provider: return weekly appointment schedule | Authenticated |
-| `/api/sub-services?category=Nails` | GET | Return sub-services for selected category (Customer) | Authenticated |
-| `/api/available-slots` | POST | Return available time slots for selected sub-service | Authenticated |
+| `/api/sub-services/:id` | GET | Return sub-services for selected category (Customer) | Authenticated |
+| `/api/available-slots` | GET | Return available time slots for selected sub-service | Authenticated |
 | `/api/confirm-appointments` | POST | Confirm and save selected appointments (after selecting time slot) | Authenticated |
 
 ---
 
-## Appointments
+## Appointments (User)
 
 | Route | Method | Description | Access |
 |-------|--------|-------------|--------|
@@ -137,7 +132,7 @@ The purpose of the application is to make the delivery of products and services 
 
 ---
 
-## Provider Sub-Services Management
+## Provider Sub-Services Management (Service Provider)
 
 | Route | Method | Description | Access |
 |-------|--------|-------------|--------|
@@ -145,6 +140,8 @@ The purpose of the application is to make the delivery of products and services 
 | `/api/my-services` | POST | Provider adds a new sub-service | Authenticated (Provider) |
 | `/api/my-services/:id` | PUT | Edit a sub-service | Authenticated (Provider) |
 | `/api/my-services/:id` | DELETE | Delete a sub-service | Authenticated (Provider) |
+| `/api/available-slots` | GET | Return available time slots for selected sub-service (Provider) | Authenticated |
+| `/api/available-slots/:id` | PUT | Edit a specific time slots for selected sub-service (Provider) | Authenticated |
 
 ---
 
@@ -154,11 +151,5 @@ The purpose of the application is to make the delivery of products and services 
 |-------|--------|-------------|--------|
 | `/api/notifications/subscribe` | POST | Subscribe to provider or service category | Authenticated |
 | `/api/notifications` | GET | View user’s notifications | Authenticated |
-
-
-
-
-
-
 
 Note: For customers, the entire booking flow (service → sub-service → schedule → confirm) happens on the same dashboard view using these routes.
