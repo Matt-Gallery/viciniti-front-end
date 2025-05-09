@@ -6,28 +6,53 @@
 
 ## Application Description
 
-The purpose of the application is to make the delivery of products and services to consumers more efficient by generating orders/reservations that are grouped closely toghther. We do this by pushing disount options to users based on their proximity to existing orders/reservations with a given service/product provider. This allows the providers to generate more business while reducing delivery costs and it allows users to get better pricing.
+The purpose of the application is to make the delivery of products and services to consumers more efficient by generating orders/appointments that are grouped closely toghther geographically. We do this by pushing disount options to users based on their proximity to existing orders/appointments with a given service/product provider. This allows the providers to generate more business while reducing delivery costs and it allows users to get better pricing.
 
 ## User Stories
 
 ### MVP Goals
-- **Create Account**
-    - As a user, I want to be able to create an account, so that I can save all my wardrobe items and preferences.
-- **Log In**
-    -As a user, I want to be able to log in to my account, so that I can save my wardrobe items and preferences and get outfit recommendations.
-- **View Account Details**
-    - As a user, I want to be able to view my account details, so that I can know that my account information is accurate.
+
+#### For Users
+- **Create User Account**
+    - As a User, I want to be able to create an account, so that I can save my preferences and personal information.
+- **User Log In**
+    -As a user, I want to be able to log in to my account, so that I can manage my account and make and manage appointments.
+- **View User Profile Details**
+    - As a User, I want to be able to view my account details, so that I can know that my account information is accurate.
     - This page can be the same as the create account page, but the fields will be populated with the users saved information and they can edit and resave each field.
-- **Edit Account Details**
-    - As a user, I want to be able to edit my account details, so that I can update any details if they change or fix any errors.
-- **Delete Account**
-    - As a user, I want to be able to delete my account, so that I can protect my data and reduce spam communications if I choose to no longer use this application.
+- **Edit User Profile Details**
+    - As a User, I want to be able to edit my account details, so that I can update any details if they change or fix any errors.
+- **Delete User Account**
+    - As a User, I want to be able to delete my account, so that I can protect my data and reduce spam communications if I choose to no longer use this application.
     - This feature will be included on the edit account page, it just adds a delete button.
-- **Create New Wardrobe Items**
-    - As a user, I want to be able to add items to my wardrobe and assign each item a rating so that those items are included in my outfit recommendations.
-    - Each wardrobe item should include basic parameters for the weather conditions in which that item should be worn.
-- **Update/Delete Wardrobe Items**
-    - As a user, I want to be able to update or delete any of the items saved in my wardrobe so that the items in my wardrobe are accurate.
+- **Search Available Appointments**
+    - As a User, I want to be able to view options for different appointments I can make by filtering a calendar for different types of services
+- **View Appointment Details & Confirm Appointment**
+    - As a User, I want to be able to view the details of a particular appointment and confirm the appoinment booking.
+- **View & Cancel Appointments**
+    - As a User, I want to be able to view a list of my appoinment bookings and cancel any appointments from the list.
+- **Change Appointments**
+    - As a User, I want to be able to change an existing appointment by being taken to the appoinment search calendar filtered for the Service Provider for my existing appointment and when I select and confirm a new appointment my old one is cancelled.
+- **Get Discounts**
+    - As a User, I want to get discounts on the services I book based on other users within a certain radius booking services with the same Service Provdier.
+
+ #### For Service Providers
+- **Create Service Provider Account**
+    - As a Service Provider, I want to be able to create an account, so that I can save my preferences and service offering information.
+- **Service Provider Log In**
+    -As a Service Provider, I want to be able to log in to my account, so that I can manage my account, service offereings and appointments.
+- **View Service Provider Profile Details**
+    - As a Service Provider, I want to be able to view my account details, so that I can know that my account information is accurate.
+    - This page can be the same as the create account page, but the fields will be populated with the users saved information and they can edit and resave each field.
+- **Edit Service Provider Profile Details**
+    - As a Service Provider, I want to be able to edit my account details, so that I can update any details if they change or fix any errors.
+- **Delete Service Provider Account**
+    - As a Service Provider, I want to be able to delete my account, so that I can protect my data and reduce spam communications if I choose to no longer use this application.
+    - This feature will be included on the edit account page, it just adds a delete button.
+- **View, Add, Edit & Delete Service Offerings**
+    - As a Service Provider, I want to be able to view the list of services I'm offering and add or remove services and update the service pricing and time 
+- **View & Edit Discount Parameters**
+    - As a Service Provider, I want to be able to enter and edit the parameters for the discounts I offer on my services based on distance .
 - **View Outfit Recommendations**
     - As a user, I want to receive recommendations for outfits to wear based on the items saved in my wardrobe and the weather forecast.
 - **Cycle Wardrobe Item Recommendations**
@@ -42,6 +67,9 @@ The purpose of the application is to make the delivery of products and services 
     - As a user, I want to to be able to edit each of the outfits I've rated.
 
 ### Stretch Goals
+-**Service Provider Managing Multiple Employees**
+    - As a Service Provider, I want to be able to manage appointments for multiple employees at the same time using a separate calendar for each.
+
 - **More Specific Response Options for Recommendations**
     - As a user, when I'm cycling through different outfit options I want to be able to specify whether I'm rejecting a particular wardroom item for today's outfit or I don't like that item in combination with the rest of a recommended outfit so I never want to see that combination again so that I can better refine my future recommendations.
 - **Adjust Mix of Recommendations Between Rated and Unrated Outfits**
@@ -84,12 +112,13 @@ The purpose of the application is to make the delivery of products and services 
 
 | Day        |   | Task                               | Blockers | Notes/ Thoughts |
 |------------|---|------------------------------------|----------|-----------------|
-| Monday     |   | Create and present proposal        |          |                 |
-| Tuesday    |   | Create Auth, Routes, Components    |          |                 |
-| Wedenesday |   | Integrate Front & Back Ends        |          |                 |
-| Thursday   |   | Work on JavaScript & CSS           |          |                 |
-| Friday     |   | Test and finalize MVP              |          |                 |
-| Saturday   |   | Work on stretch goals              |          |                 |
-| Sunday     |   | Final testing and styling          |          |                 |
-| Monday     |   | Present                            |          |                 |
+| Thursday   |   | Create and present proposal        |          |                 |
+| Friday     |   | Create Auth, Routes, Components    |          |                 |
+| Saturday   |   | Integrate Front & Back Ends        |          |                 |
+| Sunday     |   | Work on Python / React / Styling   |          |                 |
+| Monday     |   | Work on Python / React / Styling   |          |                 |
+| Tuesday    |   | Test and finalize MVP              |          |                 |
+| Wednesday  |   | Work on stretch goals              |          |                 |
+| Thursday   |   | Final testing and styling          |          |                 |
+| Friday     |   | Present                            |          |                 |
 # viciniti-front-end
