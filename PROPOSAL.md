@@ -34,7 +34,7 @@ The purpose of the application is to make the delivery of products and services 
 - **Change Appointments**
     - As a User, I want to be able to change an existing appointment by being taken to the appoinment search calendar filtered for the Service Provider for my existing appointment and when I select and confirm a new appointment my old one is cancelled.
 - **Get Discounts**
-    - As a User, I want to get discounts on the services I book based on other users within a certain radius booking services with the same Service Provdier.
+    - As a User, I want to get discounts on the services I book based on other users within a certain radius booking services with the same Service Provdier.  I want to see those discounts reflected in the prices as part of the appointment booking options.
 
  #### For Service Providers
 - **Create Service Provider Account**
@@ -52,40 +52,21 @@ The purpose of the application is to make the delivery of products and services 
 - **View, Add, Edit & Delete Service Offerings**
     - As a Service Provider, I want to be able to view the list of services I'm offering and add or remove services and update the service pricing and time 
 - **View & Edit Discount Parameters**
-    - As a Service Provider, I want to be able to enter and edit the parameters for the discounts I offer on my services based on distance .
-- **View Outfit Recommendations**
-    - As a user, I want to receive recommendations for outfits to wear based on the items saved in my wardrobe and the weather forecast.
-- **Cycle Wardrobe Item Recommendations**
-    - As a user, I want to to be able to tell the app that I don't want to wear a particular wardrobe item today and have it cycle that item to another recommendation so I can get to an outfit combination that I like.
-- **Cycle Outfit Recommendation**
-    - As a user, I want to to be able to:
-      * Tell the app that I don't want to wear a recommended outfit today and have it cycle the entire outfit to another recommendation
-      * Tell the app that I don't want to wear a recommended outfit ever and have it cycle that entire outfit to another recommendation and save this preference and have it applied to future recommendations
-- **View Rated Outfits**
-    - As a user, I want to to be able to view all of the outfits I've rated.
-- **Edit Rated Outfits**
-    - As a user, I want to to be able to edit each of the outfits I've rated.
+    - As a Service Provider, I want to be able to enter and edit the parameters for the discounts I offer on my services with inputs to set the distances from existing bookings, number of additional customers booked, and discount %.
 
 ### Stretch Goals
+- **Email Push Notifications**
+    - As a User, I want to receive push notification emails anytime there is a new discount available to me in a category that I'm subscribed to.
 -**Service Provider Managing Multiple Employees**
     - As a Service Provider, I want to be able to manage appointments for multiple employees at the same time using a separate calendar for each.
-
-- **More Specific Response Options for Recommendations**
-    - As a user, when I'm cycling through different outfit options I want to be able to specify whether I'm rejecting a particular wardroom item for today's outfit or I don't like that item in combination with the rest of a recommended outfit so I never want to see that combination again so that I can better refine my future recommendations.
-- **Adjust Mix of Recommendations Between Rated and Unrated Outfits**
-    - As a user, I want to be able to adjust the mix of outfit recommendations I receive between ones that I've rated and new ones that I haven't rated.
-- **Connect Wardrobe Item Creation Function to Web/Internal DB Search for Item**
-    - As a user, as I'm creating/editing a wardrobe item I want to be given example items to choose from pulled from the web so that I can select the actual item and have it easily populated with correct information and photo.
-- **Wish/Shopping List**
-    - As a user, I want to be able to create a wish/shopping list so that I can keep track of items I want to add to my wardrobe and can more easily shop for them.
-- **Trip Packing List**
-    - As a user, I want to be able to create multi-day sets of outfits so that I can plan my wardrobe over longer periods and can create packing lists when traveling.
-- **Cost Per Wear Tracking**
-    - As a user, I want to be able to track what I've paid for items in my wardrobe and see the running cost per wear so that my shopping decisions can be better informed.
-- **Specific Occasion Filter**
-    - As a user, I want to be able to filter my outfit recommendations based on what I have planned for the day so that I get better recommendations more quickly.
-- **More Detailed User Profile**
-    - As a user, I want to be able to save more information about myself to my profile so that I get better recommendations more quickly.
+- **Support Chat Function**
+    - As a User, I want to be able to chat with the Service Providers and customer service about my appointments and any issues that arise.
+- **Tracker Map**
+    - As a user, I want to be able to track where service providers are on a map so I can see if they are arriving as scheduled.
+- **Analytics Module**
+    - As a Service Provider, I want to be able to track certain KPIs so that I can understand how my business is performing, how this application is helping my business, and how I should tweak my service and discount offerings to better optimize my profitability.
+- **Specific Employee Booking**
+    - As a user, when a Service Provider has multiple employees, I want to be able to select a specific one to book so that I can get service for my preferred individual.
 
 ## Wire Frames
 
@@ -104,9 +85,6 @@ The purpose of the application is to make the delivery of products and services 
 ## Routing Table
 
 ![Routing Table](https://github.com/Matt-Gallery/weather-wardrobe/blob/main/Routing%20Table%202.png?raw=true)
-
-
-## Pseudocode
 
 ## Timeline
 
