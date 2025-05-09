@@ -93,3 +93,65 @@ The purpose of the application is to make the delivery of products and services 
 | Sunday     |   | Final testing and styling          |          |                 |
 | Monday     |   | Present                            |          |                 |
 # viciniti-front-end
+
+
+
+# Viciniti – Full API Routing Table (Finalized for MVP Logic)
+
+## Auth & Role Setup
+
+| Route | Method | Description | Access |
+|-------|--------|-------------|--------|
+| `/api/signup` | POST | Create a new user and select role (customer or provider) | Public |
+| `/api/login` | POST | Authenticate user and return role info | Public |
+| `/api/logout` | POST | Log out user | Authenticated |
+| `/api/provider-info` | POST | Step 2: Provider enters business details | Public (after selecting provider role) |
+
+---
+
+## Dashboard Logic (Role-Based)
+
+| Route | Method | Description | Access |
+|-------|--------|-------------|--------|
+| `/api/dashboard` | GET | If Customer: return service categories. If Provider: return weekly appointment schedule | Authenticated |
+| `/api/sub-services?category=Nails` | GET | Return sub-services for selected category (Customer) | Authenticated |
+| `/api/available-slots` | POST | Return available time slots for selected sub-service | Authenticated |
+| `/api/confirm-appointments` | POST | Confirm and save selected appointments (after selecting time slot) | Authenticated |
+
+---
+
+## Appointments
+
+| Route | Method | Description | Access |
+|-------|--------|-------------|--------|
+| `/api/appointments` | GET | View customer’s booked appointments | Authenticated (Customer) |
+| `/api/appointments/:id` | PUT | Edit a customer’s own appointment | Authenticated (Customer) |
+| `/api/appointments/:id` | DELETE | Cancel a customer’s own appointment | Authenticated (Customer) |
+
+---
+
+## Provider Sub-Services Management
+
+| Route | Method | Description | Access |
+|-------|--------|-------------|--------|
+| `/api/my-services` | GET | Provider views all of *their* sub-services | Authenticated (Provider) |
+| `/api/my-services` | POST | Provider adds a new sub-service | Authenticated (Provider) |
+| `/api/my-services/:id` | PUT | Edit a sub-service | Authenticated (Provider) |
+| `/api/my-services/:id` | DELETE | Delete a sub-service | Authenticated (Provider) |
+
+---
+
+## Notifications
+
+| Route | Method | Description | Access |
+|-------|--------|-------------|--------|
+| `/api/notifications/subscribe` | POST | Subscribe to provider or service category | Authenticated |
+| `/api/notifications` | GET | View user’s notifications | Authenticated |
+
+
+
+
+
+
+
+Note: For customers, the entire booking flow (service → sub-service → schedule → confirm) happens on the same dashboard view using these routes.
