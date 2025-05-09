@@ -97,8 +97,7 @@ The purpose of the application is to make the delivery of products and services 
 
 ## Entity Relationship Diagram (ERD)
 
-![ERD](https://github.com/Matt-Gallery/weather-wardrobe/blob/main/ERD.png?raw=true)
-
+![ERD](./public/images/erd.png)
 
 
 ## Routing Table
