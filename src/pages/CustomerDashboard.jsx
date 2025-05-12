@@ -6,28 +6,52 @@ const CustomerDashboard = () => {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Dashboard mounted, current token:', token);
+    
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      navigate('/login');
+      return;
+    }
+
     fetchAppointments();
-  }, []);
+  }, [navigate]);
 
   const fetchAppointments = async () => {
     try {
-      const data = await appointmentsAPI.getAll();
-      setAppointments(data);
+      setIsLoading(true);
+      console.log('Fetching appointments...');
+      const response = await appointmentsAPI.getAppointments();
+      console.log('Appointments response:', response);
+      setAppointments(response.appointments || []);
     } catch (err) {
-      setError('Failed to fetch appointments');
       console.error('Error fetching appointments:', err);
+      if (err.message.includes('Authentication required') || err.message.includes('Session expired')) {
+        console.log('Auth error, redirecting to login');
+        navigate('/login');
+      } else {
+        setError('Failed to fetch appointments');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleCancelAppointment = async (appointmentId) => {
     try {
-      await appointmentsAPI.cancel(appointmentId);
+      await appointmentsAPI.deleteAppointment(appointmentId);
       fetchAppointments();
     } catch (err) {
-      setError('Failed to cancel appointment');
       console.error('Error canceling appointment:', err);
+      if (err.message.includes('Authentication required') || err.message.includes('Session expired')) {
+        navigate('/login');
+      } else {
+        setError('Failed to cancel appointment');
+      }
     }
   };
 
@@ -35,6 +59,10 @@ const CustomerDashboard = () => {
     // TODO: Implement change appointment functionality
     console.log('Change appointment:', appointmentId);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -49,10 +77,11 @@ const CustomerDashboard = () => {
           <div>
             {appointments.map(appointment => (
               <div key={appointment.id}>
-                <p>Service: {appointment.service}</p>
-                <p>Date: {appointment.date}</p>
-                <p>Time: {appointment.time}</p>
-                <p>Status: {appointment.status}</p>
+                <p>Service: {appointment.service_title}</p>
+                <p>Date: {new Date(appointment.datetime).toLocaleDateString()}</p>
+                <p>Time: {new Date(appointment.datetime).toLocaleTimeString()}</p>
+                <p>Location: {appointment.location}</p>
+                <p>Price: ${appointment.discounted_price || 'N/A'}</p>
                 <button onClick={() => handleCancelAppointment(appointment.id)}>
                   Cancel
                 </button>
@@ -67,7 +96,7 @@ const CustomerDashboard = () => {
 
       <div>
         <h3>Quick Actions</h3>
-        <button onClick={() => navigate('/book-appointment')}>
+        <button onClick={() => navigate('/services')}>
           Book New Appointment
         </button>
         <button onClick={() => navigate('/profile')}>

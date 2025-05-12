@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../config';
+import { authAPI } from '../services/api';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -39,23 +39,7 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/signup/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        let errorMsg = 'Signup failed';
-        try {
-          const errorData = await response.json();
-          errorMsg = errorData.error || errorData.detail || JSON.stringify(errorData);
-        } catch {}
-        throw new Error(errorMsg);
-      }
-
+      await authAPI.signup(payload);
       navigate('/login');
     } catch (err) {
       setError(err.message || 'Failed to sign up');

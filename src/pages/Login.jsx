@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../config';
+import { authAPI } from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,36 +23,40 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/login/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        let errorMsg = 'Login failed';
-        try {
-          const errorData = await response.json();
-          errorMsg = errorData.detail || errorData.error || JSON.stringify(errorData);
-        } catch (e) {}
-        throw new Error(errorMsg);
-      }
-
-      const data = await response.json();
+      console.log('Attempting login with:', formData);
+      const data = await authAPI.login(formData);
       console.log('Login response:', data);
-
-      // Store the token if present
-      if (data.access) {
-        localStorage.setItem('token', data.access);
+      
+      if (!data.access) {
+        throw new Error('No access token received from server');
       }
-      // Optionally store user role, etc.
 
-      navigate('/dashboard');
+      // Store the token and user role
+      localStorage.setItem('token', data.access);
+      localStorage.setItem('userRole', data.user.role);
+      
+      // Verify token was stored
+      const storedToken = localStorage.getItem('token');
+      const storedRole = localStorage.getItem('userRole');
+      
+      console.log('Stored token:', storedToken);
+      console.log('Stored role:', storedRole);
+      
+      if (!storedToken) {
+        throw new Error('Failed to store authentication token');
+      }
+      
+      // Navigate to the appropriate dashboard based on role
+      if (data.user.role === 'provider') {
+        console.log('Navigating to provider dashboard');
+        navigate('/provider-dashboard');
+      } else {
+        console.log('Navigating to customer dashboard');
+        navigate('/dashboard');
+      }
     } catch (err) {
+      console.error('Login error details:', err);
       setError(err.message || 'Invalid username or password');
-      console.error('Login error:', err);
     }
   };
 

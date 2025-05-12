@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import CustomerDashboard from './pages/CustomerDashboard';
 import CompleteProviderProfile from './pages/CompleteProviderProfile';
+import Services from './pages/Services';
 import './App.css';
 
 // Create a theme instance
@@ -51,6 +52,16 @@ function App() {
                   ) : (
                     <CustomerDashboard />
                   )
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route 
+              path="services" 
+              element={
+                isAuthenticated() ? (
+                  <Services />
                 ) : (
                   <Navigate to="/login" replace />
                 )
