@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api';
+import API_BASE_URL from '../config';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -29,11 +30,36 @@ const SignUp = () => {
       return;
     }
 
+    // Only send required fields to backend
+    const payload = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      role: formData.role
+    };
+
     try {
-      await authAPI.signup(formData);
+      const response = await fetch(`${API_BASE_URL}/api/signup/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        // Try to get error message from backend
+        let errorMsg = 'Signup failed';
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.detail || JSON.stringify(errorData);
+        } catch {}
+        throw new Error(errorMsg);
+      }
+
       navigate('/login');
     } catch (err) {
-      setError('Failed to sign up');
+      setError(err.message || 'Failed to sign up');
       console.error('Signup error:', err);
     }
   };
@@ -43,6 +69,16 @@ const SignUp = () => {
       <h2>Sign Up</h2>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Email:</label>
           <input

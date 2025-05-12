@@ -36,7 +36,7 @@ export const authAPI = {
     }),
 
   signup: (userData) =>
-    apiRequest('/api/signup', {
+    apiRequest('/api/signup/', {
       method: 'POST',
       body: JSON.stringify(userData),
     }),
