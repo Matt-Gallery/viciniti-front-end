@@ -35,13 +35,20 @@ const Login = () => {
         let errorMsg = 'Login failed';
         try {
           const errorData = await response.json();
-          errorMsg = errorData.detail || JSON.stringify(errorData);
+          errorMsg = errorData.detail || errorData.error || JSON.stringify(errorData);
         } catch (e) {}
         throw new Error(errorMsg);
       }
 
       const data = await response.json();
-      // Store the token/user data as needed
+      console.log('Login response:', data);
+
+      // Store the token if present
+      if (data.access) {
+        localStorage.setItem('token', data.access);
+      }
+      // Optionally store user role, etc.
+
       navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Invalid username or password');
