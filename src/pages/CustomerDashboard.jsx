@@ -13,8 +13,10 @@ const CustomerDashboard = () => {
 
   const fetchAppointments = async () => {
     try {
-      const data = await appointmentsAPI.getAll();
-      setAppointments(data);
+      const response = await appointmentsAPI.getAppointments();
+      console.log('Fetched appointments:', response);
+      // Handle the new response format that includes appointments array and count
+      setAppointments(response.appointments || []);
     } catch (err) {
       setError('Failed to fetch appointments');
       console.error('Error fetching appointments:', err);
@@ -23,7 +25,7 @@ const CustomerDashboard = () => {
 
   const handleCancelAppointment = async (appointmentId) => {
     try {
-      await appointmentsAPI.cancel(appointmentId);
+      await appointmentsAPI.deleteAppointment(appointmentId);
       fetchAppointments();
     } catch (err) {
       setError('Failed to cancel appointment');
@@ -49,10 +51,11 @@ const CustomerDashboard = () => {
           <div>
             {appointments.map(appointment => (
               <div key={appointment.id}>
-                <p>Service: {appointment.service}</p>
-                <p>Date: {appointment.date}</p>
-                <p>Time: {appointment.time}</p>
-                <p>Status: {appointment.status}</p>
+                <p>Service: {appointment.service_title}</p>
+                <p>Date: {new Date(appointment.datetime).toLocaleDateString()}</p>
+                <p>Time: {new Date(appointment.datetime).toLocaleTimeString()}</p>
+                <p>Location: {appointment.location}</p>
+                <p>Price: ${appointment.discounted_price || 'N/A'}</p>
                 <button onClick={() => handleCancelAppointment(appointment.id)}>
                   Cancel
                 </button>
@@ -67,7 +70,7 @@ const CustomerDashboard = () => {
 
       <div>
         <h3>Quick Actions</h3>
-        <button onClick={() => navigate('/book-appointment')}>
+        <button onClick={() => navigate('/services')}>
           Book New Appointment
         </button>
         <button onClick={() => navigate('/profile')}>

@@ -1,5 +1,5 @@
 // Base URL for the API
-const API_BASE_URL = 'http://127.0.0.1:8000'; // Python backend URL
+const API_BASE_URL = 'http://localhost:8000'; // Python backend URL
 
 // Helper function to handle API requests
 const apiRequest = async (endpoint, options = {}) => {
@@ -30,7 +30,7 @@ const apiRequest = async (endpoint, options = {}) => {
 // Auth API calls
 export const authAPI = {
   login: (credentials) => 
-    apiRequest('/api/login', {
+    apiRequest('/api/login/', {
       method: 'POST',
       body: JSON.stringify(credentials),
     }),
@@ -41,19 +41,19 @@ export const authAPI = {
       body: JSON.stringify(userData),
     }),
 
-  logout: () =>
-    apiRequest('/api/logout', {
-      method: 'POST',
-    }),
+  logout: () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+  },
 };
 
 // User API calls
 export const userAPI = {
   getProfile: () =>
-    apiRequest('/api/user'),
+    apiRequest('/api/user/'),
 
   updateProfile: (profileData) =>
-    apiRequest('/api/user', {
+    apiRequest('/api/user/', {
       method: 'POST',
       body: JSON.stringify(profileData),
     }),
@@ -62,22 +62,22 @@ export const userAPI = {
 // Appointments API calls
 export const appointmentsAPI = {
   getAppointments: () =>
-    apiRequest('/api/appointments'),
+    apiRequest('/api/appointments/'),
 
   createAppointment: (appointmentData) =>
-    apiRequest('/api/appointments', {
+    apiRequest('/api/appointments/', {
       method: 'POST',
       body: JSON.stringify(appointmentData),
     }),
 
   updateAppointment: (id, appointmentData) =>
-    apiRequest(`/api/appointments/${id}`, {
+    apiRequest(`/api/appointments/${id}/`, {
       method: 'PUT',
       body: JSON.stringify(appointmentData),
     }),
 
   deleteAppointment: (id) =>
-    apiRequest(`/api/appointments/${id}`, {
+    apiRequest(`/api/appointments/${id}/`, {
       method: 'DELETE',
     }),
 };
@@ -85,8 +85,8 @@ export const appointmentsAPI = {
 // Services API calls
 export const servicesAPI = {
   getServices: () =>
-    apiRequest('/api/services'),
+    apiRequest('/api/services/'),
 
   getAvailableSlots: (serviceId) =>
-    apiRequest(`/api/appointments/available?service_id=${serviceId}`),
+    apiRequest(`/api/appointments/available/?service_id=${serviceId}`),
 }; 
