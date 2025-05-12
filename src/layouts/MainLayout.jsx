@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
+import Navbar from '../components/Navbar';
 
 const MainLayout = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* Header will go here */}
-      <Container component="main" sx={{ flex: 1, py: 4 }}>
+    <>
+      <Navbar />
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Outlet />
       </Container>
-      {/* Footer will go here */}
-    </Box>
+    </>
   );
 };
 

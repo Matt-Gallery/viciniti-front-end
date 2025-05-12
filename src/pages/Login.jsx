@@ -27,12 +27,24 @@ const Login = () => {
       const data = await authAPI.login(formData);
       console.log('Login response:', data);
       
+      if (!data.access) {
+        throw new Error('No access token received from server');
+      }
+
       // Store the token and user role
       localStorage.setItem('token', data.access);
       localStorage.setItem('userRole', data.user.role);
       
-      console.log('Stored token:', localStorage.getItem('token'));
-      console.log('Stored role:', localStorage.getItem('userRole'));
+      // Verify token was stored
+      const storedToken = localStorage.getItem('token');
+      const storedRole = localStorage.getItem('userRole');
+      
+      console.log('Stored token:', storedToken);
+      console.log('Stored role:', storedRole);
+      
+      if (!storedToken) {
+        throw new Error('Failed to store authentication token');
+      }
       
       // Navigate to the appropriate dashboard based on role
       if (data.user.role === 'provider') {

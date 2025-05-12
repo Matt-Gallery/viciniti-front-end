@@ -6,20 +6,38 @@ const CustomerDashboard = () => {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Dashboard mounted, current token:', token);
+    
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      navigate('/login');
+      return;
+    }
+
     fetchAppointments();
-  }, []);
+  }, [navigate]);
 
   const fetchAppointments = async () => {
     try {
+      setIsLoading(true);
+      console.log('Fetching appointments...');
       const response = await appointmentsAPI.getAppointments();
-      console.log('Fetched appointments:', response);
-      // Handle the new response format that includes appointments array and count
+      console.log('Appointments response:', response);
       setAppointments(response.appointments || []);
     } catch (err) {
-      setError('Failed to fetch appointments');
       console.error('Error fetching appointments:', err);
+      if (err.message.includes('Authentication required') || err.message.includes('Session expired')) {
+        console.log('Auth error, redirecting to login');
+        navigate('/login');
+      } else {
+        setError('Failed to fetch appointments');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -28,8 +46,12 @@ const CustomerDashboard = () => {
       await appointmentsAPI.deleteAppointment(appointmentId);
       fetchAppointments();
     } catch (err) {
-      setError('Failed to cancel appointment');
       console.error('Error canceling appointment:', err);
+      if (err.message.includes('Authentication required') || err.message.includes('Session expired')) {
+        navigate('/login');
+      } else {
+        setError('Failed to cancel appointment');
+      }
     }
   };
 
@@ -37,6 +59,10 @@ const CustomerDashboard = () => {
     // TODO: Implement change appointment functionality
     console.log('Change appointment:', appointmentId);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
