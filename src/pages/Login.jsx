@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api';
+import API_BASE_URL from '../config';
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -23,17 +23,28 @@ const Login = () => {
     setError('');
 
     try {
-      const data = await authAPI.login(formData);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userRole', data.role);
+      const response = await fetch(`${API_BASE_URL}/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (data.role === 'provider') {
-        navigate('/provider-dashboard');
-      } else {
-        navigate('/dashboard');
+      if (!response.ok) {
+        let errorMsg = 'Login failed';
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.detail || JSON.stringify(errorData);
+        } catch (e) {}
+        throw new Error(errorMsg);
       }
+
+      const data = await response.json();
+      // Store the token/user data as needed
+      navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password');
+      setError(err.message || 'Invalid username or password');
       console.error('Login error:', err);
     }
   };
@@ -44,11 +55,11 @@ const Login = () => {
       {error && <div style={{ color: 'red' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email:</label>
+          <label>Username:</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
