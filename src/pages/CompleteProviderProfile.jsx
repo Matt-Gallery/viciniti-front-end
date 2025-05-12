@@ -1,20 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Alert
-} from '@mui/material';
+import { userAPI } from '../services/api';
 
 const CompleteProviderProfile = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     businessName: '',
-    businessAddress: '',
+    address: '',
     phoneNumber: '',
-    businessDescription: ''
+    description: ''
   });
   const [error, setError] = useState('');
 
@@ -31,80 +25,61 @@ const CompleteProviderProfile = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save profile');
-      }
-
-      // Redirect to provider dashboard or home
-      navigate('/');
+      await userAPI.updateProfile(formData);
+      navigate('/dashboard');
     } catch (err) {
-      setError('Failed to save profile. Please try again.');
-      console.error('Profile completion error:', err);
+      setError('Failed to save profile');
+      console.error('Profile update error:', err);
     }
   };
 
   return (
-    <Box>
-      <Typography variant="h5">Complete Your Business Profile</Typography>
-      {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+    <div>
+      <h2>Complete Your Business Profile</h2>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
-        <TextField
-          required
-          fullWidth
-          label="Business Name"
-          name="businessName"
-          value={formData.businessName}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          fullWidth
-          label="Business Address"
-          name="businessAddress"
-          value={formData.businessAddress}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          fullWidth
-          label="Phone Number"
-          name="phoneNumber"
-          type="tel"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          fullWidth
-          label="Business Description"
-          name="businessDescription"
-          multiline
-          rows={4}
-          value={formData.businessDescription}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <Button 
-          type="submit" 
-          variant="contained" 
-          fullWidth
-          sx={{ mt: 2 }}
-        >
-          Complete Profile
-        </Button>
+        <div>
+          <label>Business Name:</label>
+          <input
+            type="text"
+            name="businessName"
+            value={formData.businessName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Address:</label>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Phone Number:</label>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Save Profile</button>
       </form>
-    </Box>
+    </div>
   );
 };
 

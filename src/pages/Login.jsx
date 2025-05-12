@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Link,
-  Alert
-} from '@mui/material';
+import { authAPI } from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,21 +23,15 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const data = await authAPI.login(formData);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userRole', data.role);
 
-      if (!response.ok) {
-        throw new Error('Login failed');
+      if (data.role === 'provider') {
+        navigate('/provider-dashboard');
+      } else {
+        navigate('/dashboard');
       }
-
-      const data = await response.json();
-      // TODO: Store the token/user data
-      navigate('/');
     } catch (err) {
       setError('Invalid email or password');
       console.error('Login error:', err);
@@ -52,47 +39,36 @@ const Login = () => {
   };
 
   return (
-    <Box>
-      <Typography variant="h5">Login</Typography>
-      {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+    <div>
+      <h2>Login</h2>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
-        <TextField
-          required
-          fullWidth
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <TextField
-          required
-          fullWidth
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <Button 
-          type="submit" 
-          variant="contained" 
-          fullWidth
-          sx={{ mt: 2, mb: 2 }}
-        >
-          Login
-        </Button>
-        <Link
-          component="button"
-          onClick={() => navigate('/signup')}
-          sx={{ display: 'block', textAlign: 'center' }}
-        >
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+        <button type="button" onClick={() => navigate('/signup')}>
           Don't have an account? Sign Up
-        </Link>
+        </button>
       </form>
-    </Box>
+    </div>
   );
 };
 
