@@ -39,7 +39,7 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/signup/`, {
+      const response = await fetch(`${API_BASE_URL}/signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,11 +48,10 @@ const SignUp = () => {
       });
 
       if (!response.ok) {
-        // Try to get error message from backend
         let errorMsg = 'Signup failed';
         try {
           const errorData = await response.json();
-          errorMsg = errorData.detail || JSON.stringify(errorData);
+          errorMsg = errorData.error || errorData.detail || JSON.stringify(errorData);
         } catch {}
         throw new Error(errorMsg);
       }
